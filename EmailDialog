@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+
+      function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler(onSuccess).updateEmail(formObject);
+      }
+      function onSuccess() {
+      
+       google.script.host.close(); // close the ModalDialog windows 
+       
+      }
+    </script>
+  </head>
+  <body>
+    <form id="myForm" onsubmit="handleFormSubmit(this)">
+      <input name="authMail" type="text" size="35" />
+      <br>
+      <br>
+      <input type="submit" value="Submit" />
+    </form>
+ </body>
+</html>
